@@ -9,6 +9,6 @@
 * [第3章 分布式](3_distributed/3.0_introduction.md)
 * [第4章 区块链](4_blockchain/4.0_introduction.md)
 	* [4.1 密码学](4_blockchain/4.1_cryptography/4.1.1_introduction.md)
-	* [4.2 比特币和以太坊](4_blockchain/4.2_bitcoin and ethereum/4.2.1_introduction.md)
+	* [4.2 比特币和以太坊](4_blockchain/4.2_bitcoin_and_ethereum/4.2.1_introduction.md)
 	* [4.3 其他公链](4_blockchain/4.3_other/4.3.1_introduction.md)
-* [第5章  复杂科学](5_complex science/5.0_introduction.md)
+* [第5章  复杂科学](5_complex_science/5.0_introduction.md)
