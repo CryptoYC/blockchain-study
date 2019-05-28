@@ -5,4 +5,4 @@
 
 ## 关于我们
 
-![QRcode](C:\Users\Tao Su\Desktop\QRcode.jpg)
+![QRcode](https://github.com/EVOLABTeam/blockchain-study/blob/master/asset/img/QRcode.jpg)
