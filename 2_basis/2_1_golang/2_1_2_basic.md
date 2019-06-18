@@ -27,6 +27,8 @@ func main() {
 
 最后就是我们刚刚导入的"fmt"包中的打印函数了，包名+"."（指针操作符）+函数即可。
 
+### 分组导入
+
 看完前两行，我们再看一段程序：
 ```
 package main
@@ -40,4 +42,27 @@ func main() {
 	fmt.Println("My favorite number is", rand.Intn(10))
 }
 ```
+此代码用圆括号组合了导入，这是“分组”形式的导入语句（推荐）。 
 
+~~当然你也可以编写多个导入语句 ~~
+```
+import "fmt"
+import "math"
+```
+
+### 导出名
+
+在 Go 中，如果一个名字以大写字母开头，那么它就是已导出的。例如，Pizza 就是个已导出名，Pi 也同样，它导出自 math 包。 
+pizza 和 pi 并未以大写字母开头，所以它们是未导出的。 
+
+在导入一个包时，你只能引用其中已导出的名字。任何“未导出”的名字在该包外均无法访问。 
+执行代码，观察错误输出。 
+
+然后将 math.pi 改名为 math.Pi 再试着执行一次。 
+
+结果
+
+./*.go:9:14: cannot refer to unexported name math.pi
+./*.go:9:14: undefined: math.pi
+
+Program exited.
