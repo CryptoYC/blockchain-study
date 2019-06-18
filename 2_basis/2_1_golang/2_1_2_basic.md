@@ -115,12 +115,7 @@ func main() {
 
 55
 
-本例中
-`x int, y int`
-
-被缩写为 
-
-`x, y int`
+本例中`x int, y int`被缩写为 `x, y int`
 
 ### 多值返回
 
@@ -141,5 +136,157 @@ func main() {
 
 ```
 
+结果
+
+world hello
+
 swap 函数返回了两个字符串。
 
+### 命名返回值
+Go 的返回值可被命名，它们会被视作定义在函数顶部的变量。 
+
+返回值的名称应当具有一定的意义，它可以作为文档使用。 
+
+没有参数的 return 语句返回已命名的返回值。也就是 直接 返回。 
+
+直接返回语句应当仅用在下面这样的短函数中。在长的函数中它们会影响代码的可读性。 
+
+```
+package main
+
+import "fmt"
+
+func split(sum int) (x, y int) {
+	x = sum * 4 / 9
+	y = sum - x
+	return
+}
+
+func main() {
+	fmt.Println(split(17))
+}
+
+```
+
+结果
+
+7 10
+
+### 变量
+var 语句用于声明一个变量列表，跟函数的参数列表一样，类型在最后。 
+```
+package main
+
+import "fmt"
+
+var c, python, java bool
+
+func main() {
+	var i int
+	fmt.Println(i, c, python, java)
+}
+```
+
+结果
+
+0, false, false, false
+
+就像在这个例子中看到的一样，var 语句可以出现在包或函数级别。
+
+### 变量的初始化
+
+变量声明可以包含初始值，每个变量对应一个。
+
+如果初始化值已存在，则可以省略类型；变量会从初始值中获得类型。 
+
+```
+package main
+
+import "fmt"
+
+var i, j int = 1, 2
+
+func main() {
+	var c, python, java = true, false, "no!"
+	fmt.Println(i, j, c, python, java)
+}
+```
+
+结果
+
+1 2 true false no!
+
+### 短变量声明
+
+在函数中，简洁赋值语句 := 可在类型明确的地方代替 var 声明。 
+
+函数外的每个语句都必须以关键字开始（var, func 等等），因此 := 结构不能在函数外使用。 
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	var i, j int = 1, 2
+	k := 3
+	c, python, java := true, false, "no!"
+
+	fmt.Println(i, j, k, c, python, java)
+}
+```
+
+结果
+
+1 2 3 true false no!
+
+### 基本类型
+
+Go 的基本类型有 
+
+>bool
+
+>string
+
+>int  int8  int16  int32  int64
+>uint uint8 uint16 uint32 uint64 uintptr
+
+>byte // uint8 的别名
+
+>rune // int32 的别名 表示一个 Unicode 码点
+
+>float32 float64
+
+>complex64 complex128
+
+```
+package main
+
+import (
+	"fmt"
+	"math/cmplx"
+)
+
+var (
+	ToBe   bool       = false
+	MaxInt uint64     = 1<<64 - 1
+	z      complex128 = cmplx.Sqrt(-5 + 12i)
+)
+
+func main() {
+	fmt.Printf("Type: %T Value: %v\n", ToBe, ToBe)
+	fmt.Printf("Type: %T Value: %v\n", MaxInt, MaxInt)
+	fmt.Printf("Type: %T Value: %v\n", z, z)
+}
+```
+
+结果
+
+Type: bool Value: false
+Type: uint64 Value: 18446744073709551615
+Type: complex128 Value: (2+3i)
+
+
+本例展示了几种类型的变量。 同导入语句一样，变量声明也可以“分组”成一个语法块。 
+
+int, uint 和 uintptr 在 32 位系统上通常为 32 位宽，在 64 位系统上则为 64 位宽。 当你需要一个整数值时应使用 int 类型，除非你有特殊的理由使用固定大小或无符号的整数类型。 
