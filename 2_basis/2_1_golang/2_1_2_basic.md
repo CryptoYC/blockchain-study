@@ -12,7 +12,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello, 世界")
+	fmt.Println("Hello, world~")
 }
 ```
 
@@ -24,6 +24,8 @@ func main() {
 接下来是`import "fmt"`，这也是包的一种使用方式，即引用。
 一般来说，我们会引用Golang自身提供的一些工具包来实现自己的程序，如"fmt"、"io/ioutil"、"log"、"math"、"os"、"path/filepath"、"strings"、"unicode"、"unsafe"等实用包文件。
 （使用Golang提供的包中的函数而未引用时，可以快捷键自动导入！）
+
+最后就是我们刚刚导入的"fmt"包中的打印函数了，包名+"."（指针操作符）+函数即可。
 
 看完前两行，我们再看一段程序：
 ```
