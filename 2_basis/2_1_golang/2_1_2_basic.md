@@ -281,12 +281,79 @@ func main() {
 ```
 
 结果
----------------------------------------------
+
 Type: bool Value: false
 Type: uint64 Value: 18446744073709551615
 Type: complex128 Value: (2+3i)
----------------------------------------------
+
 
 本例展示了几种类型的变量。 同导入语句一样，变量声明也可以“分组”成一个语法块。 
 
 int, uint 和 uintptr 在 32 位系统上通常为 32 位宽，在 64 位系统上则为 64 位宽。 当你需要一个整数值时应使用 int 类型，除非你有特殊的理由使用固定大小或无符号的整数类型。 
+
+### 零值
+没有明确初始值的变量声明会被赋予它们的 零值。 
+
+零值是： 
+
+数值类型为 0，布尔类型为 false，字符串为 ""（空字符串）。
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	var i int
+	var f float64
+	var b bool
+	var s string
+	fmt.Printf("%v %v %v %q\n", i, f, b, s)
+}
+```
+
+结果
+
+0 0 false ""
+
+
+### 类型转换
+
+表达式 T(v) 将值 v 转换为类型 T。 
+
+一些关于数值的转换： 
+```
+var i int = 42
+var f float64 = float64(i)
+var u uint = uint(f)
+```
+或者，更加简单的形式： 
+```
+i := 42
+f := float64(i)
+u := uint(f)
+```
+
+```
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func main() {
+	var x, y int = 3, 4
+	var f float64 = math.Sqrt(float64(x*x + y*y))
+	var z uint = uint(f)
+	fmt.Println(x, y, z)
+}
+```
+结果
+
+3 4 5
+
+与 C 不同的是，Go 在不同类型的项之间赋值时需要显式转换。试着移除例子中 float64 或 uint 的转换看看会发生什么。 
+
+~*.go:10:32: cannot use x * x + y * y (type int) as type float64 in argument to math.Sqrt~
+~*.go:11:6: cannot use f (type float64) as type uint in assignment~
