@@ -356,4 +356,119 @@ func main() {
 与 C 不同的是，Go 在不同类型的项之间赋值时需要显式转换。试着移除例子中 float64 或 uint 的转换看看会发生什么。 
 
 ~*.go:10:32: cannot use x * x + y * y (type int) as type float64 in argument to math.Sqrt~
+
 ~*.go:11:6: cannot use f (type float64) as type uint in assignment~
+
+### 类型推导
+在声明一个变量而不指定其类型时（即使用不带类型的 := 语法或 var = 表达式语法），变量的类型由右值推导得出。
+ 
+当右值声明了类型时，新变量的类型与其相同： 
+```
+var i int
+j := i // j 也是一个 int
+```
+不过当右边包含未指明类型的数值常量时，新变量的类型就可能是 int, float64 或 complex128 了，这取决于常量的精度： 
+```
+i := 42           // int
+f := 3.142        // float64
+g := 0.867 + 0.5i // complex128
+```
+尝试修改示例代码中 v 的初始值，并观察它是如何影响类型的。 
+```
+package main
+
+import "fmt"
+
+func main() {
+	v := 42 // 修改这里！
+	fmt.Printf("v is of type %T\n", v)
+}
+```
+
+结果
+
+v is of type int
+
+~v is of type float64~
+
+~v is of type complex128~
+
+### 常量
+常量的声明与变量类似，只不过是使用 const 关键字。
+
+常量可以是字符、字符串、布尔值或数值。 
+
+常量不能用 := 语法声明。 
+```
+package main
+
+import "fmt"
+
+const Pi = 3.14
+
+func main() {
+	const World = "世界"
+	fmt.Println("Hello", World)
+	fmt.Println("Happy", Pi, "Day")
+
+	const Truth = true
+	fmt.Println("Go rules?", Truth)
+}
+```
+
+结果
+
+Hello 世界
+
+Happy 3.14 Day
+
+Go rules? true
+
+### 数值常量
+数值常量是高精度的值。 
+
+一个未指定类型的常量由上下文来决定其类型。 
+
+再尝试一下输出 needInt(Big) 吧。 
+
+（int 类型最大可以存储一个 64 位的整数，有时会更小。） 
+
+（int 可以存放最大64位的整数，根据平台不同有时会更少。） 
+```
+package main
+
+import "fmt"
+
+const (
+	// 将 1 左移 100 位来创建一个非常大的数字
+	// 即这个数的二进制是 1 后面跟着 100 个 0
+	Big = 1 << 100
+	// 再往右移 99 位，即 Small = 1 << 1，或者说 Small = 2
+	Small = Big >> 99
+)
+
+func needInt(x int) int { return x*10 + 1 }
+func needFloat(x float64) float64 {
+	return x * 0.1
+}
+
+func main() {
+	fmt.Println(needInt(Small))
+	fmt.Println(needFloat(Small))
+	fmt.Println(needFloat(Big))
+}
+```
+结果
+
+21
+
+0.2
+
+1.2676506002282295e+29
+
+
+### 恭喜！
+
+你已经完成了本课程！ 
+ 
+
