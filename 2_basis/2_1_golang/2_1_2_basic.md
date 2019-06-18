@@ -335,7 +335,7 @@ i := 42
 f := float64(i)
 u := uint(f)
 ```
-
+与 C 不同的是，Go 在不同类型的项之间赋值时需要显式转换。试着移除例子中 float64 或 uint 的转换看看会发生什么。
 ```
 package main
 
@@ -354,8 +354,6 @@ func main() {
 结果
 
 3 4 5
-
-与 C 不同的是，Go 在不同类型的项之间赋值时需要显式转换。试着移除例子中 float64 或 uint 的转换看看会发生什么。 
 
 ~*.go:10:32: cannot use x * x + y * y (type int) as type float64 in argument to math.Sqrt~
 
