@@ -48,7 +48,7 @@ func main() {
 
 Now you have 2.6457513110645907 problems.
 
-~~当然你也可以编写多个导入语句 ~~
+~~当然你也可以编写多个导入语句~~
 ```
 import "fmt"
 import "math"
@@ -94,4 +94,52 @@ func main() {
 结果
 
 55
+
+当连续两个或多个函数的已命名形参类型相同时，除最后一个类型以外，其它都可以省略。 
+```
+package main
+
+import "fmt"
+
+func add(x, y int) int {
+	return x + y
+}
+
+func main() {
+	fmt.Println(add(42, 13))
+}
+
+```
+
+结果
+
+55
+
+本例中
+`x int, y int`
+
+被缩写为 
+
+`x, y int`
+
+### 多值返回
+
+函数可以返回任意数量的返回值。 
+```
+package main
+
+import "fmt"
+
+func swap(x, y string) (string, string) {
+	return y, x
+}
+
+func main() {
+	a, b := swap("hello", "world")
+	fmt.Println(a, b)
+}
+
+```
+
+swap 函数返回了两个字符串。
 
