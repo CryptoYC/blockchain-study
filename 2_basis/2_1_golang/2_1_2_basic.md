@@ -553,7 +553,7 @@ func main() {
 
 结果
 
-<font color=red>process took too long</font>
+<font color=#FF0000>process took too long</font>
 
 ## 恭喜！
 
