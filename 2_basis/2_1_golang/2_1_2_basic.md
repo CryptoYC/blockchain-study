@@ -44,6 +44,10 @@ func main() {
 ```
 此代码用圆括号组合了导入，这是“分组”形式的导入语句（推荐）。 
 
+结果
+
+Now you have 2.6457513110645907 problems.
+
 ~~当然你也可以编写多个导入语句 ~~
 ```
 import "fmt"
@@ -63,6 +67,14 @@ pizza 和 pi 并未以大写字母开头，所以它们是未导出的。
 结果
 
 ./*.go:9:14: cannot refer to unexported name math.pi
+
 ./*.go:9:14: undefined: math.pi
 
-Program exited.
+## 函数
+
+函数可以没有参数或接受多个参数。 
+在本例中，add 接受两个 int 类型的参数。 
+注意类型在变量名 之后。 
+[article]: https://blog.go-zh.org/gos-declaration-syntax "这篇关于 Go 语法声明的文章"
+（参考 [article]了解这种类型声明形式出现的原因。） 
+
