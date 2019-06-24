@@ -1579,6 +1579,114 @@ func main() {
 
 34
 
+### 方法
+Go 没有类。然而，仍然可以在结构体类型上定义方法。 
+
+方法接收者 出现在`func`关键字和方法名之间的参数中。 
+```
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type Vertex struct {
+	X, Y float64
+}
+
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+func main() {
+	v := &Vertex{3, 4}
+	fmt.Println(v.Abs())
+}
+```
+
+结果
+
+5
+
+你可以对包中的 任意 类型定义任意方法，而不仅仅是针对结构体。 
+
+但是，不能对来自其他包的类型或基础类型定义方法。
+```
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
+}
+
+func main() {
+	f := MyFloat(-math.Sqrt2)
+	fmt.Println(f.Abs())
+}
+```
+结果
+
+1.4142135623730951
+
+### 接收者为指针的方法
+
+方法可以与命名类型或命名类型的指针关联。 
+
+刚刚看到的两个`Abs`方法。一个是在`*Vertex`指针类型上，而另一个在`MyFloat`值类型上。 
+
+有两个原因需要使用指针接收者。
+
+首先避免在每个方法调用中拷贝值（如果值类型是大的结构体的话会更有效率）。
+
+其次，方法可以修改接收者指向的值。 
+
+尝试修改`Abs`的定义，同时`Scale`方法使用`Vertex`代替`*Vertex`作为接收者。
+
+当`v`是`Vertex`的时候`Scale`方法没有任何作用。`Scale` 修改 `v`。
+
+当`v`是一个值（非指针），方法看到的是`Vertex`的副本，并且无法修改原始值。 
+
+`Abs`的工作方式是一样的。只不过，仅仅读取 `v`。所以读取的是原始值（通过指针）还是那个值的副本并没有关系。 
+```
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type Vertex struct {
+	X, Y float64
+}
+
+func (v *Vertex) Scale(f float64) {
+	v.X = v.X * f
+	v.Y = v.Y * f
+}
+
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+func main() {
+	v := &Vertex{3, 4}
+	v.Scale(5)
+	fmt.Println(v, v.Abs())
+}
+```
+结果
+
+&{15 20} 25
 
 ## 恭喜！
 
