@@ -1749,6 +1749,117 @@ func (v *Vertex) Abs() float64 {
 
 5
 
+### 隐式接口
+类型通过实现那些方法来实现接口。 
+
+没有显式声明的必要；所以也就没有关键字`implements`。 
+
+隐式接口解藕了实现接口的包和定义接口的包：互不依赖。 
+
+因此，也就无需在每一个实现上增加新的接口名称，这样同时也鼓励了明确的接口定义。 
+
+包`io`定义了`Reader`和 `Writer`；其实不一定要这么做。 
+```
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+type Reader interface {
+	Read(b []byte) (n int, err error)
+}
+
+type Writer interface {
+	Write(b []byte) (n int, err error)
+}
+
+type ReadWriter interface {
+	Reader
+	Writer
+}
+
+func main() {
+	var w Writer
+
+	// os.Stdout 实现了 Writer
+	w = os.Stdout
+
+	fmt.Fprintf(w, "hello, writer\n")
+}
+```
+
+结果
+
+hello, writer
+
+### Stringers
+一个普遍存在的接口是`fmt`包中定义的`Stringer`。 
+```
+type Stringer interface {
+    String() string
+}
+```
+`Stringer`是一个可以用字符串描述自己的类型。`fmt`包 （还有许多其他包）使用这个来进行输出。 
+
+```
+package main
+
+import "fmt"
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+func (p Person) String() string {
+	return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+}
+
+func main() {
+	a := Person{"Arthur Dent", 42}
+	z := Person{"Zaphod Beeblebrox", 9001}
+	fmt.Println(a, z)
+}
+```
+结果
+
+Arthur Dent (42 years) Zaphod Beeblebrox (9001 years)
+
+### 练习：Stringers
+让 IPAddr 类型实现 fmt.Stringer 以便用点分格式输出地址。
+
+例如，`IPAddr{1,`2,`3,`4}` 应当输出 `"1.2.3.4"`。 
+```
+package main
+
+import "fmt"
+
+type IPAddr [4]byte
+
+// TODO: Add a "String() string" method to IPAddr.
+func (ip_addr IPAddr) String() string {
+	return fmt.Sprintf("%v.%v.%v.%v", ip_addr[0], ip_addr[1], ip_addr[2], ip_addr[3])
+}
+
+func main() {
+	addrs := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for n, a := range addrs {
+		fmt.Printf("%v: %v\n", n, a)
+	}
+}
+```
+
+结果
+
+loopback: 127.0.0.1
+
+googleDNS: 8.8.8.8
+
 
 ## 恭喜！
 
