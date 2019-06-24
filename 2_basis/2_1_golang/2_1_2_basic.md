@@ -1074,9 +1074,9 @@ Hello World
 \[Hello World]
 
 ### slice
-一个 slice 会指向一个序列的值，并且包含了长度信息。 
+一个`slice`会指向一个序列的值，并且包含了长度信息。 
 
-`[]T`是一个元素类型为`T`的slice。 
+`[]T`是一个元素类型为`T`的`slice`。 
 ```
 package main
 
@@ -1107,13 +1107,13 @@ p\[4] == 11
 
 p\[5] == 13
 
-### 对 slice 切片
+### 对`slice`切片
 
-slice 可以重新切片，创建一个新的 slice 值指向相同的数组，表达式
+`slice`可以重新切片，创建一个新的`slice`值指向相同的数组，表达式
 
 `s[lo:hi]`
 
-表示从 lo 到 hi-1 的 slice 元素，含两端。
+表示从 lo 到 hi-1 的`slice`元素，含两端。
 
 因此`s[lo:lo]`是空的，而`s[lo:lo+1]`有一个元素。 
 
@@ -1143,6 +1143,54 @@ p\[1:4] == \[3 5 7]
 p\[:3] == \[2 3 5]
 
 p\[4:] == \[11 13]
+
+### 构造 slice
+
+`slice`由函数`make`创建。这会分配一个零长度的数组并且返回一个`slice`指向这个数组：
+
+`a := make([]int, 5)  // len(a)=5`
+
+为了指定容量，可传递第三个参数到 `make`： 
+```
+b := make([]int, 0, 5) // len(b)=0, cap(b)=5
+
+b = b[:cap(b)] // len(b)=5, cap(b)=5
+b = b[1:]      // len(b)=4, cap(b)=4
+```
+```
+package main
+
+import "fmt"
+
+func main() {
+	a := make([]int, 5)
+	printSlice("a", a)
+	b := make([]int, 0, 5)
+	printSlice("b", b)
+	c := b[:2]
+	printSlice("c", c)
+	d := c[2:5]
+	printSlice("d", d)
+}
+
+func printSlice(s string, x []int) {
+	fmt.Printf("%s len=%d cap=%d %v\n",
+		s, len(x), cap(x), x)
+}
+```
+
+结果
+
+a len=5 cap=5 \[0 0 0 0 0]
+
+b len=0 cap=5 \[]
+
+c len=2 cap=5 \[0 0]
+
+d len=3 cap=3 \[0 0 0]
+
+### nil slice
+`slice`的零值是 `nil`，一个`nil`的`slice`的长度和容量是 0。 
 
 
 ## 恭喜！
