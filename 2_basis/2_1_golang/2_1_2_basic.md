@@ -1932,7 +1932,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 type ErrNegativeSqrt float64
@@ -1945,7 +1944,15 @@ func Sqrt(x float64) (float64, error) {
 	if x < 0 {
 		return 0, ErrNegativeSqrt(x)
 	}
-	return math.Sqrt(x), nil
+	const D = 0.0000001
+	z := float64(1)
+	for {
+		l := z
+		z = z - (z*z-x)/(2*x)
+		if z-l >= 0 && z-l <= D {
+			return z, nil
+		}
+	}
 }
 
 func main() {
@@ -2006,6 +2013,125 @@ b\[:n] = "eader!"
 n = 0 err = EOF b = \[101 97 100 101 114 33 32 82]
 
 b\[:n] = ""
+
+### 练习：Reader
+实现一个 Reader 类型，它不断生成 ASCII 字符 'A' 的流。
+```
+package main
+
+import "code.google.com/p/go-tour/reader"
+
+type MyReader struct{}
+
+// TODO: Add a Read([]byte) (int, error) method to MyReader.
+func (r MyReader) Read(p []byte) (int, error) {
+	p[0] = 'A'
+	return 1, nil
+}
+
+func main() {
+	reader.Validate(MyReader{})
+}
+```
+
+结果
+
+OK!
+
+### 练习：rot13Reader
+一个常见模式是`io.Reader`包裹另一个 `io.Reader`，然后通过某种形式修改数据流。
+
+例如，`gzip.NewReader`函数接受 `io.Reader`（压缩的数据流）并且返回同样实现了`io.Reader`的 `*gzip.Reader`（解压缩后的数据流）。 
+
+编写一个实现了`io.Reader`的 `rot13Reader`， 并从一个`io.Reader`读取， 利用`rot13`代换密码对数据流进行修改。 
+
+已经帮你构造了`rot13Reader`类型。 通过实现`Read`方法使其匹配 `io.Reader`。 
+
+```
+package main
+
+import (
+	"io"
+	"os"
+	"strings"
+)
+
+type rot13Reader struct {
+	r io.Reader
+}
+
+func rot13(out byte) byte { //字母转换
+	switch {
+	case out >= 'A' && out <= 'M' || out >= 'a' && out <= 'm':
+		out += 13
+	case out >= 'N' && out <= 'Z' || out >= 'n' && out <= 'z':
+		out -= 13
+	}
+	return out
+}
+
+func (rot *rot13Reader) Read(buf []byte) (n int, err error) {
+	n, e := rot.r.Read(buf)
+	for i := 0; i < n; i++ {
+		buf[i] = rot13(buf[i])
+	}
+	return n, e
+}
+
+func main() {
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
+}
+```
+
+结果
+
+You cracked the code!
+
+### Web 服务器
+包`http`通过任何实现了`http.Handler`的值来响应`HTTP`请求： 
+```
+package http
+
+type Handler interface {
+    ServeHTTP(w ResponseWriter, r *Request)
+}
+```
+在这个例子中，类型`Hello`实现了 `http.Handler`。
+
+访问 http://localhost:4000/ 会看到来自程序的问候。 
+
+注意： 这个例子无法在基于 web 的指南用户界面运行。为了尝试编写 web 服务器，可能需要安装 Go。 
+```
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
+
+type Hello struct{}
+
+func (h Hello) ServeHTTP(
+	w http.ResponseWriter,
+	r *http.Request) {
+	fmt.Fprint(w, "Hello!")
+}
+
+func main() {
+	var h Hello
+	err := http.ListenAndServe("localhost:4000", h)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+```
+
+结果
+
+（localhost:4000）下：Hello!
 
 ## 恭喜！
 
