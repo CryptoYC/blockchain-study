@@ -718,7 +718,7 @@ func main() {
 
 ### switch
 
-一个结构体（`struct`）就是一个字段的集合，除非以`fallthrough`语句结束，否则分支会自动终止。 
+一个结构体`struct`就是一个字段的集合，除非以`fallthrough`语句结束，否则分支会自动终止。 
 ```
 package main
 
@@ -759,6 +759,125 @@ switch i {
 ```
 
 当 i==0 时不会调用 `f`。
+
+```
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	fmt.Println("When's Saturday?")
+	today := time.Now().Weekday()
+	switch time.Saturday {
+	case today + 0:
+		fmt.Println("Today.")
+	case today + 1:
+		fmt.Println("Tomorrow.")
+	case today + 2:
+		fmt.Println("In two days.")
+	default:
+		fmt.Println("Too far away.")
+	}
+}
+```
+
+结果
+
+When's Saturday?
+Too far away.
+
+### 无条件switch
+
+没有条件的 switch 同 `switch true` 一样。 
+
+这一构造使得可以用更清晰的形式来编写长的 if-then-else 链。 
+
+```
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	t := time.Now()
+	switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+}
+```
+
+结果
+
+Good afternoon.
+
+### defer
+
+defer 语句会延迟函数的执行直到上层函数返回。 
+
+延迟调用的参数会立刻生成，但是在上层函数返回前函数都不会被调用。 
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	defer fmt.Println("world")
+
+	fmt.Println("hello")
+}
+```
+
+结果
+
+hello
+world
+
+### defer栈
+
+延迟的函数调用被压入一个栈中。当函数返回时， 会按照后进先出的顺序调用被延迟的函数调用。 
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("counting")
+
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+
+	fmt.Println("done")
+}
+```
+
+结果
+
+counting
+done
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+
 
 ## 恭喜！
 
