@@ -1928,10 +1928,84 @@ at 2019-06-24 16:36:13.2975566 +0800 CST m=+0.002014401, it didn't work
 修改`Sqrt`函数，使其接受一个负数时，返回`ErrNegativeSqrt`值。 
 
 ```
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
+}
+
+func Sqrt(x float64) (float64, error) {
+	if x < 0 {
+		return 0, ErrNegativeSqrt(x)
+	}
+	return math.Sqrt(x), nil
+}
+
+func main() {
+	fmt.Println(Sqrt(2))
+	fmt.Println(Sqrt(-2))
+}
 ```
 
 结果
 
+1.4142135623730951 <nil>
+	
+0 cannot Sqrt negative number: -2
+
+### Readers
+`io`包指定了`io.Reader`接口， 它表示从数据流结尾读取。 
+
+Go 标准库包含了这个接口的许多实现， 包括文件、网络连接、压缩、加密等等。 
+
+`io.Reader`接口有一个`Read`方法： `func (T) Read(b []byte) (n int, err error)`
+
+`Read`用数据填充指定的字节`slice`，并且返回填充的字节数和错误信息。 在遇到数据流结尾时，返回`io.EOF`错误。 
+
+例子代码创建了一个`strings.Reader`。 并且以每次 8 字节的速度读取它的输出。 
+```
+package main
+
+import (
+	"fmt"
+	"io"
+	"strings"
+)
+
+func main() {
+	r := strings.NewReader("Hello, Reader!")
+
+	b := make([]byte, 8)
+	for {
+		n, err := r.Read(b)
+		fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
+		fmt.Printf("b[:n] = %q\n", b[:n])
+		if err == io.EOF {
+			break
+		}
+	}
+}
+```
+结果
+
+n = 8 err = <nil> b = \[72 101 108 108 111 44 32 82]
+	
+b\[:n] = "Hello, R"
+
+n = 6 err = <nil> b = \[101 97 100 101 114 33 32 82]
+	
+b\[:n] = "eader!"
+
+n = 0 err = EOF b = \[101 97 100 101 114 33 32 82]
+
+b\[:n] = ""
 
 ## 恭喜！
 
