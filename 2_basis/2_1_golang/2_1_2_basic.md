@@ -1295,6 +1295,146 @@ func main() {
 
 2\*\*7 = 128
 
+可以通过赋值给`_`来忽略序号和值。 
+
+如果只需要索引值，去掉`, value`的部分即可。 
+```
+package main
+
+import "fmt"
+
+func main() {
+	pow := make([]int, 10)
+	for i := range pow {
+		pow[i] = 1 << uint(i)
+	}
+	for _, value := range pow {
+		fmt.Printf("%d\n", value)
+	}
+}
+```
+
+结果
+
+1
+
+2
+
+4
+
+8
+
+16
+
+32
+
+64
+
+128
+
+256
+
+512
+
+### map
+`map`映射键到值。
+
+`map`在使用之前必须用`make`而不是`new`来创建；值为`nil`的`map`是空的，并且不能赋值。 
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+	Lat, Long float64
+}
+
+var m map[string]Vertex
+
+func main() {
+	m = make(map[string]Vertex)
+	m["Bell Labs"] = Vertex{
+		40.68433, -74.39967,
+	}
+	fmt.Println(m["Bell Labs"])
+}
+```
+
+结果
+
+{40.68433 -74.39967}
+
+如果顶级的类型只有类型名的话，可以在文法的元素中省略键名。 
+
+```
+package main
+
+import "fmt"
+
+type Vertex struct {
+	Lat, Long float64
+}
+
+var m = map[string]Vertex{
+	"Bell Labs": {40.68433, -74.39967},
+	"Google":    {37.42202, -122.08408},
+}
+
+func main() {
+	fmt.Println(m)
+}
+```
+结果
+
+map[Bell Labs:{40.68433 -74.39967} Google:{37.42202 -122.08408}]
+
+### 修改 map
+在 map m 中插入或修改一个元素： `m[key] = elem`
+
+获得元素： `elem = m[key]`
+
+删除元素： `delete(m, key)`
+
+通过双赋值检测某个键存在： `elem, ok = m[key]`
+
+如果`key`在`m`中，`ok` 为`true`。否则，`ok`为 `false`，并且`elem`是`map`的元素类型的零值。 
+
+同样的，当从`map`中读取某个不存在的键时，结果是`map`的元素类型的零值。 
+```
+package main
+
+import "fmt"
+
+func main() {
+	m := make(map[string]int)
+
+	m["Answer"] = 42
+	fmt.Println("The value:", m["Answer"])
+
+	m["Answer"] = 48
+	fmt.Println("The value:", m["Answer"])
+
+	delete(m, "Answer")
+	fmt.Println("The value:", m["Answer"])
+
+	v, ok := m["Answer"]
+	fmt.Println("The value:", v, "Present?", ok)
+}
+```
+
+结果
+
+The value: 42
+
+The value: 48
+
+The value: 0
+
+The value: 0 Present? false
+
+
+
 
 ## 恭喜！
 
