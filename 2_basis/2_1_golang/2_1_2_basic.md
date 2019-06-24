@@ -1071,7 +1071,42 @@ func main() {
 
 Hello World
 
-\[Hello World\]
+\[Hello World]
+
+### slice
+一个 slice 会指向一个序列的值，并且包含了长度信息。 
+
+`[]T`是一个元素类型为`T`的slice。 
+```
+package main
+
+import "fmt"
+
+func main() {
+	p := []int{2, 3, 5, 7, 11, 13}
+	fmt.Println("p ==", p)
+
+	for i := 0; i < len(p); i++ {
+		fmt.Printf("p[%d] == %d\n", i, p[i])
+	}
+}
+```
+结果
+
+p == \[2 3 5 7 11 13]
+
+p\[0] == 2
+
+p\[1] == 3
+
+p\[2] == 5
+
+p\[3] == 7
+
+p\[4] == 11
+
+p\[5] == 13
+
 
 
 ## 恭喜！
