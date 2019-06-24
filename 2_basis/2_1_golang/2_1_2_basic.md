@@ -1107,7 +1107,7 @@ p\[4] == 11
 
 p\[5] == 13
 
-### 对`slice`切片
+### 对 slice 切片
 
 `slice`可以重新切片，创建一个新的`slice`值指向相同的数组，表达式
 
@@ -1191,6 +1191,109 @@ d len=3 cap=3 \[0 0 0]
 
 ### nil slice
 `slice`的零值是 `nil`，一个`nil`的`slice`的长度和容量是 0。 
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	var z []int
+	fmt.Println(z, len(z), cap(z))
+	if z == nil {
+		fmt.Println("nil!")
+	}
+}
+```
+
+结果
+
+\[] 0 0
+
+nil!
+
+### 向 slice 添加元素
+向`slice`添加元素是一种常见的操作，因此 Go 提供了一个内建函数 `append`。 内建函数的文档对`append`有详细介绍。 
+
+`func append(s []T, vs ...T) []T`
+
+`append`的第一个参数`s`是一个类型为`T`的数组，其余类型为`T`的值将会添加到`slice`。 
+
+`append`的结果是一个包含原`slice`所有元素加上新添加的元素的`slice`。
+
+如果`s`的底层数组太小，而不能容纳所有值时，会分配一个更大的数组。 返回的`slice`会指向这个新分配的数组。 
+
+（了解更多关于`slice`的内容，参阅文章[slice：使用和内幕](https://blog.golang.org/go-slices-usage-and-internals)。） 
+```
+package main
+
+import "fmt"
+
+func main() {
+	var a []int
+	printSlice("a", a)
+
+	// append works on nil slices.
+	a = append(a, 0)
+	printSlice("a", a)
+
+	// the slice grows as needed.
+	a = append(a, 1)
+	printSlice("a", a)
+
+	// we can add more than one element at a time.
+	a = append(a, 2, 3, 4)
+	printSlice("a", a)
+}
+
+func printSlice(s string, x []int) {
+	fmt.Printf("%s len=%d cap=%d %v\n",
+		s, len(x), cap(x), x)
+}
+```
+
+结果
+
+a len=0 cap=0 \[]
+
+a len=1 cap=1 \[0]
+
+a len=2 cap=2 \[0 1]
+
+a len=5 cap=6 \[0 1 2 3 4]
+
+### range
+`for`循环的`range`格式可以对`slice`或者`map`进行迭代循环。 
+```
+package main
+
+import "fmt"
+
+var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
+
+func main() {
+	for i, v := range pow {
+		fmt.Printf("2**%d = %d\n", i, v)
+	}
+}
+```
+结果
+
+2\*\*0 = 1
+
+2\*\*1 = 2
+
+2\*\*2 = 4
+
+2\*\*3 = 8
+
+2\*\*4 = 16
+
+2\*\*5 = 32
+
+2\*\*6 = 64
+
+2\*\*7 = 128
 
 
 ## 恭喜！
