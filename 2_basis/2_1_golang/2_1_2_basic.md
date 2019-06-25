@@ -2415,38 +2415,35 @@ func main() {
 ```
 结果
 
+```
     .
-    
-    .
-    
-tick\.
 
     .
-    
-    .
-    
-tick\.
+
+tick.
 
     .
-    
     .
-    
-tick\.
+
+tick.
 
     .
-    
     .
-    
-tick\.
+
+tick.
 
     .
-    
     .
-    
-tick\.
+
+tick.
+
+    .
+    .
+
+tick.
 
 BOOM!
-
+```
 
 ## 恭喜！
 
