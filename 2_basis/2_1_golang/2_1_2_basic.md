@@ -46,7 +46,7 @@ func main() {
 
 结果
 
-Now you have 2.6457513110645907 problems.
+`Now you have 2.6457513110645907 problems.`
 
 ~~当然你也可以编写多个导入语句~~
 ```
@@ -65,11 +65,10 @@ pizza 和 pi 并未以大写字母开头，所以它们是未导出的。
 然后将 math.pi 改名为 math.Pi 再试着执行一次。 
 
 结果
-
+```
 ./*.go:9:14: cannot refer to unexported name math.pi
-
 ./*.go:9:14: undefined: math.pi
-
+```
 ## 函数
 
 函数可以没有参数或接受多个参数。 
@@ -93,7 +92,7 @@ func main() {
 ```
 结果
 
-55
+`55`
 
 当连续两个或多个函数的已命名形参类型相同时，除最后一个类型以外，其它都可以省略。 
 ```
@@ -113,7 +112,7 @@ func main() {
 
 结果
 
-55
+`55`
 
 本例中`x int, y int`被缩写为 `x, y int`
 
@@ -138,7 +137,7 @@ func main() {
 
 结果
 
-world hello
+`world hello`
 
 swap 函数返回了两个字符串。
 
@@ -170,7 +169,7 @@ func main() {
 
 结果
 
-7 10
+`7 10`
 
 ### 变量
 var 语句用于声明一个变量列表，跟函数的参数列表一样，类型在最后。 
@@ -189,7 +188,7 @@ func main() {
 
 结果
 
-0, false, false, false
+`0, false, false, false`
 
 就像在这个例子中看到的一样，var 语句可以出现在包或函数级别。
 
@@ -214,7 +213,7 @@ func main() {
 
 结果
 
-1 2 true false no!
+`1 2 true false no!`
 
 ### 短变量声明
 
@@ -238,7 +237,7 @@ func main() {
 
 结果
 
-1 2 3 true false no!
+`1 2 3 true false no!`
 
 ### 基本类型
 
@@ -285,15 +284,11 @@ func main() {
 ```
 
 结果
-
+```
 Type: bool Value: false
-
 Type: uint64 Value: 18446744073709551615
-
 Type: complex128 Value: (2+3i)
-
-
-
+```
 
 ### 零值
 没有明确初始值的变量声明会被赋予它们的 零值。 
@@ -318,7 +313,7 @@ func main() {
 
 结果
 
-0 0 false ""
+`0 0 false ""`
 
 
 ### 类型转换
@@ -355,11 +350,12 @@ func main() {
 ```
 结果
 
-3 4 5
+`3 4 5`
 
-~*.go:10:32: cannot use x * x + y * y (type int) as type float64 in argument to math.Sqrt~
+`~*.go:10:32: cannot use x * x + y * y (type int) as type float64 in argument to math.Sqrt~`
 
-~*.go:11:6: cannot use f (type float64) as type uint in assignment~
+`~*.go:11:6: cannot use f (type float64) as type uint in assignment~`
+
 
 ### 类型推导
 在声明一个变量而不指定其类型时（即使用不带类型的 := 语法或 var = 表达式语法），变量的类型由右值推导得出。
@@ -389,11 +385,11 @@ func main() {
 
 结果
 
-v is of type int
+`v is of type int`
 
-~v is of type float64~
+~`v is of type float64`~
 
-~v is of type complex128~
+~`v is of type complex128`~
 
 ### 常量
 常量的声明与变量类似，只不过是使用 const 关键字。
@@ -419,13 +415,11 @@ func main() {
 ```
 
 结果
-
+```
 Hello 世界
-
 Happy 3.14 Day
-
 Go rules? true
-
+```
 ### 数值常量
 数值常量是高精度的值。 
 
@@ -461,13 +455,11 @@ func main() {
 }
 ```
 结果
-
+```
 21
-
 0.2
-
 1.2676506002282295e+29
-
+```
 ## for
 Go 只有一种循环结构：for 循环。 
 
@@ -500,7 +492,7 @@ func main() {
 
 结果
 
-45
+`45`
 
 其中初始化语句和后置语句是可选的。 
 ```
@@ -518,7 +510,7 @@ func main() {
 ```
 结果
 
-1024
+`1024`
 
 ### for 是 Go 中的 “while”
 此时你可以去掉分号，因为 C 的 while 在 Go 中叫做 for。 
@@ -538,7 +530,7 @@ func main() {
 
 结果
 
-1024
+`1024`
 
 ### 无限循环
 如果省略循环条件，该循环就不会结束，因此无限循环可以写得很紧凑。 
@@ -553,7 +545,7 @@ func main() {
 
 结果
 
-<font color=#FF0000>process took too long</font>
+`process took too long`
 
 ## if
 Go 的 if 语句与 for 循环类似，表达式外无需小括号 ( ) ，而大括号 { } 则是必须的
@@ -579,7 +571,7 @@ func main() {
 ```
 结果
 
-1.4142135623730951 2i
+`1.4142135623730951 2i`
 
 ### if的简短语句
 同 for 一样， if 语句可以在条件表达式前执行一个简单的语句。 
@@ -611,11 +603,11 @@ func main() {
 
 结果
 
-9 20
+`9 20`
 
 （在最后的 return 语句处使用 v 看看。） 
 
-~*.go:12:9: undefined: v~
+`~*.go:12:9: undefined: v~`
 
 ### if 和 else
 
@@ -649,11 +641,10 @@ func main() {
 ```
 
 结果
-
+```
 27 >= 20
-
 9 20
-
+```
 ## 练习：循环与函数
 为了练习函数与循环，我们来实现一个平方根函数：用牛顿法实现平方根函数。 
 
@@ -714,7 +705,7 @@ func main() {
 
 结果
 
-1.4142135
+`1.4142135`
 
 ### switch
 
@@ -745,7 +736,7 @@ func main() {
 结果
 
 
-Go runs on Linux.
+`Go runs on Linux.`
 
 
 ### switch的执行顺序
@@ -785,11 +776,10 @@ func main() {
 ```
 
 结果
-
+```
 When's Saturday?
-
 Too far away.
-
+```
 ### 无条件switch
 
 没有条件的 switch 同 `switch true` 一样。 
@@ -819,7 +809,7 @@ func main() {
 
 结果
 
-Good afternoon.
+`Good afternoon.`
 
 ### defer
 
@@ -840,11 +830,10 @@ func main() {
 ```
 
 结果
-
+```
 hello
-
 world
-
+```
 ### defer栈
 
 延迟的函数调用被压入一个栈中。当函数返回时， 会按照后进先出的顺序调用被延迟的函数调用。 
@@ -868,31 +857,20 @@ func main() {
 ```
 
 结果
-
+```
 counting
-
 done
-
 9
-
 8
-
 7
-
 6
-
 5
-
 4
-
 3
-
 2
-
 1
-
 0
-
+```
 ### 指针
 Go 具有指针。 指针保存了变量的内存地址。 
 
@@ -932,13 +910,11 @@ func main() {
 ```
 
 结果
-
+```
 42
-
 21
-
 73
-
+```
 ### 结构体
 
 一个结构体`struct`就是一个字段的集合，而`type`的含义跟其字面意思相符。 
@@ -960,7 +936,7 @@ func main() {
 
 结果
 
-{1 2}
+`{1 2}`
 
 ### 结构体字段
 结构体字段使用点号来访问。 
@@ -984,7 +960,7 @@ func main() {
 
 结果
 
-4
+`4`
 
 ### 结构体指针
 结构体字段可以通过结构体指针来访问。 
@@ -1011,7 +987,7 @@ func main() {
 
 结果
 
-{1000000000 2}
+`{1000000000 2}`
 
 ### 结构体文法
 结构体文法表示通过结构体字段的值作为列表来新分配一个结构体。 
@@ -1042,7 +1018,7 @@ func main() {
 ```
 结果
 
-{1 2} &{1 2} {1 0} {0 0}
+`{1 2} &{1 2} {1 0} {0 0}`
 
 ### 数组
 类型`[n]T`是一个有 n 个类型为`T`的值的数组，表达式 
@@ -1068,11 +1044,10 @@ func main() {
 ```
 
 结果
-
+```
 Hello World
-
-\[Hello World]
-
+[Hello World]
+```
 ### slice
 一个`slice`会指向一个序列的值，并且包含了长度信息。 
 
@@ -1092,21 +1067,15 @@ func main() {
 }
 ```
 结果
-
+```
 p == \[2 3 5 7 11 13]
-
-p\[0] == 2
-
-p\[1] == 3
-
-p\[2] == 5
-
-p\[3] == 7
-
-p\[4] == 11
-
-p\[5] == 13
-
+p[0] == 2
+p[1] == 3
+p[2] == 5
+p[3] == 7
+p[4] == 11
+p[5] == 13
+```
 ### 对 slice 切片
 
 `slice`可以重新切片，创建一个新的`slice`值指向相同的数组，表达式
@@ -1135,15 +1104,12 @@ func main() {
 }
 ```
 结果
-
-p == \[2 3 5 7 11 13]
-
-p\[1:4] == \[3 5 7]
-
-p\[:3] == \[2 3 5]
-
-p\[4:] == \[11 13]
-
+```
+p == [2 3 5 7 11 13]
+p[1:4] == [3 5 7]
+p[:3] == [2 3 5]
+p[4:] == [11 13]
+```
 ### 构造 slice
 
 `slice`由函数`make`创建。这会分配一个零长度的数组并且返回一个`slice`指向这个数组：
@@ -1180,15 +1146,12 @@ func printSlice(s string, x []int) {
 ```
 
 结果
-
-a len=5 cap=5 \[0 0 0 0 0]
-
-b len=0 cap=5 \[]
-
-c len=2 cap=5 \[0 0]
-
-d len=3 cap=3 \[0 0 0]
-
+```
+a len=5 cap=5 [0 0 0 0 0]
+b len=0 cap=5 []
+c len=2 cap=5 [0 0]
+d len=3 cap=3 [0 0 0]
+```
 ### nil slice
 `slice`的零值是 `nil`，一个`nil`的`slice`的长度和容量是 0。 
 
@@ -1207,11 +1170,10 @@ func main() {
 ```
 
 结果
-
-\[] 0 0
-
+```
+[] 0 0
 nil!
-
+```
 ### 向 slice 添加元素
 向`slice`添加元素是一种常见的操作，因此 Go 提供了一个内建函数 `append`。 内建函数的文档对`append`有详细介绍。 
 
@@ -1253,15 +1215,12 @@ func printSlice(s string, x []int) {
 ```
 
 结果
-
-a len=0 cap=0 \[]
-
-a len=1 cap=1 \[0]
-
-a len=2 cap=2 \[0 1]
-
-a len=5 cap=6 \[0 1 2 3 4]
-
+```
+a len=0 cap=0 []
+a len=1 cap=1 [0]
+a len=2 cap=2 [0 1]
+a len=5 cap=6 [0 1 2 3 4]
+```
 ### range
 `for`循环的`range`格式可以对`slice`或者`map`进行迭代循环。 
 ```
@@ -1278,23 +1237,16 @@ func main() {
 }
 ```
 结果
-
+```
 2\*\*0 = 1
-
 2\*\*1 = 2
-
 2\*\*2 = 4
-
 2\*\*3 = 8
-
 2\*\*4 = 16
-
 2\*\*5 = 32
-
 2\*\*6 = 64
-
 2\*\*7 = 128
-
+```
 可以通过赋值给`_`来忽略序号和值。 
 
 如果只需要索引值，去掉`, value`的部分即可。 
@@ -1315,27 +1267,18 @@ func main() {
 ```
 
 结果
-
+```
 1
-
 2
-
 4
-
 8
-
 16
-
 32
-
 64
-
 128
-
 256
-
 512
-
+```
 ### map
 `map`映射键到值。
 
@@ -1363,7 +1306,7 @@ func main() {
 
 结果
 
-{40.68433 -74.39967}
+`{40.68433 -74.39967}`
 
 如果顶级的类型只有类型名的话，可以在文法的元素中省略键名。 
 
@@ -1387,7 +1330,7 @@ func main() {
 ```
 结果
 
-map[Bell Labs:{40.68433 -74.39967} Google:{37.42202 -122.08408}]
+`map[Bell Labs:{40.68433 -74.39967} Google:{37.42202 -122.08408}]`
 
 ### 修改 map
 在 map m 中插入或修改一个元素： `m[key] = elem`
@@ -1424,14 +1367,12 @@ func main() {
 ```
 
 结果
-
+```
 The value: 42
-
 The value: 48
-
 The value: 0
-
 The value: 0 Present? false
+```
 
 ### 函数值
 函数也是值。 
@@ -1454,7 +1395,7 @@ func main() {
 
 结果
 
-5
+`5`
 
 ### 函数的闭包
 
@@ -1486,27 +1427,18 @@ func main() {
 ```
 
 结果
-
+```
 0 0
-
 1 -2
-
 3 -6
-
 6 -12
-
 10 -20
-
 15 -30
-
 21 -42
-
 28 -56
-
 36 -72
-
 45 -90
-
+```
 ### 练习：斐波纳契闭包
 现在来通过函数做些有趣的事情。 
 
@@ -1558,27 +1490,18 @@ func main() {
 ```
 
 结果
-
+```
 0
-
 1
-
 1
-
 2
-
 3
-
 5
-
 8
-
 13
-
 21
-
 34
-
+```
 ### 方法
 Go 没有类。然而，仍然可以在结构体类型上定义方法。 
 
@@ -1607,7 +1530,7 @@ func main() {
 
 结果
 
-5
+`5`
 
 你可以对包中的 任意 类型定义任意方法，而不仅仅是针对结构体。 
 
@@ -1636,7 +1559,7 @@ func main() {
 ```
 结果
 
-1.4142135623730951
+`1.4142135623730951`
 
 ### 接收者为指针的方法
 
@@ -1686,7 +1609,7 @@ func main() {
 ```
 结果
 
-&{15 20} 25
+`&{15 20} 25`
 
 ### 接口
 接口类型是由一组方法定义的集合。 
@@ -1741,13 +1664,13 @@ func (v *Vertex) Abs() float64 {
 *注意*： 示例代码的 22 行存在一个错误。 由于`Abs`只定义在`*Vertex`（指针类型） 上， 所以`Vertex`（值类型） 不满足 `Abser`。
 
 结果
-
+```
 .\*.go:287:4: cannot use v (type Vertex) as type Abser in assignment:
 	Vertex does not implement Abser (Abs method has pointer receiver)
-
+```
 将`main()`中`a = v`注释掉，结果
 
-5
+`5`
 
 ### 隐式接口
 类型通过实现那些方法来实现接口。 
@@ -1792,7 +1715,7 @@ func main() {
 
 结果
 
-hello, writer
+`hello, writer`
 
 ### Stringers
 一个普遍存在的接口是`fmt`包中定义的`Stringer`。 
@@ -1825,7 +1748,7 @@ func main() {
 ```
 结果
 
-Arthur Dent (42 years) Zaphod Beeblebrox (9001 years)
+`Arthur Dent (42 years) Zaphod Beeblebrox (9001 years)`
 
 ### 练习：Stringers
 让 IPAddr 类型实现 fmt.Stringer 以便用点分格式输出地址。
@@ -1855,11 +1778,10 @@ func main() {
 ```
 
 结果
-
+```
 loopback: 127.0.0.1
-
 googleDNS: 8.8.8.8
-
+```
 ### 错误
 Go 程序使用`error`值来表示错误状态。 
 
@@ -1913,7 +1835,7 @@ func main() {
 
 结果
 
-at 2019-06-24 16:36:13.2975566 +0800 CST m=+0.002014401, it didn't work
+`at 2019-06-24 16:36:13.2975566 +0800 CST m=+0.002014401, it didn't work`
 
 ### 练习：错误
 从之前的练习中复制`Sqrt`函数，并修改使其返回`error`值。 
@@ -1962,11 +1884,10 @@ func main() {
 ```
 
 结果
-
+```
 1.4142135623730951 <nil>
-	
 0 cannot Sqrt negative number: -2
-
+```
 ### Readers
 `io`包指定了`io.Reader`接口， 它表示从数据流结尾读取。 
 
@@ -2001,19 +1922,14 @@ func main() {
 }
 ```
 结果
-
+```
 n = 8 err = <nil> b = \[72 101 108 108 111 44 32 82]
-	
 b\[:n] = "Hello, R"
-
 n = 6 err = <nil> b = \[101 97 100 101 114 33 32 82]
-	
 b\[:n] = "eader!"
-
 n = 0 err = EOF b = \[101 97 100 101 114 33 32 82]
-
 b\[:n] = ""
-
+```
 ### 练习：Reader
 实现一个 Reader 类型，它不断生成 ASCII 字符 'A' 的流。
 ```
@@ -2036,7 +1952,7 @@ func main() {
 
 结果
 
-OK!
+`OK!`
 
 ### 练习：rot13Reader
 一个常见模式是`io.Reader`包裹另一个 `io.Reader`，然后通过某种形式修改数据流。
@@ -2087,7 +2003,7 @@ func main() {
 
 结果
 
-You cracked the code!
+`You cracked the code!`
 
 ### Web 服务器
 包`http`通过任何实现了`http.Handler`的值来响应`HTTP`请求： 
@@ -2131,7 +2047,7 @@ func main() {
 
 结果
 
-（localhost:4000）下：Hello!
+`（localhost:4000）下：Hello!`
 
 ### goroutine
 `goroutine`是由 Go 运行时环境管理的轻量级线程。 
@@ -2167,25 +2083,17 @@ func main() {
 ```
 
 结果
-
+```
 hello
-
 world
-
 world
-
 hello
-
 world
-
 hello
-
 hello
-
 world
-
 hello
-
+```
 ### channel
 `channel`是有类型的管道，可以用`channel`操作符`<-`对其发送或者接收值。 
 ```
@@ -2223,7 +2131,7 @@ func main() {
 ```
 结果
 
--5 17 12
+`-5 17 12`
 
 ### 缓冲 channel
 `channel`可以是带缓冲的。为`make`提供第二个参数作为缓冲长度来初始化一个缓冲`channel`： 
@@ -2248,11 +2156,10 @@ func main() {
 ```
 
 结果
-
+```
 1
-
 2
-
+```
 `c := make(chan int, 2)`变为`c := make(chan int, 1)`
 
 结果
@@ -2296,27 +2203,18 @@ func main() {
 }
 ```
 结果
-
+```
 0
-
 1
-
 1
-
 2
-
 3
-
 5
-
 8
-
 13
-
 21
-
 34
-
+```
 ### select
 `select`语句使得一个`goroutine`在多个通讯操作上等待。 
 
@@ -2352,29 +2250,19 @@ func main() {
 }
 ```
 结果
-
+```
 0
-
 1
-
 1
-
 2
-
 3
-
 5
-
 8
-
 13
-
 21
-
 34
-
 quit
-
+```
 ### 默认选择
 当`select`中的其他条件分支都没有准备好的时候，`default` 分支会被执行。 
 
@@ -2417,31 +2305,20 @@ func main() {
 
 ```
     .
-
     .
-
 tick.
-
     .
     .
-
 tick.
-
     .
     .
-
 tick.
-
     .
     .
-
 tick.
-
     .
     .
-
 tick.
-
 BOOM!
 ```
 
