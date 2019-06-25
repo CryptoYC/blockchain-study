@@ -2259,6 +2259,194 @@ func main() {
 
 fatal error: all goroutines are asleep - deadlock!
 
+### range 和 close
+发送者可以`close`一个`channel`来表示再没有值会被发送了。
+
+接收者可以通过赋值语句的第二参数来测试`channel`是否被关闭：
+
+当没有值可以接收并且`channel`已经被关闭，那么经过 `v, ok := <-ch`之后`ok`会被设置为 `false`。 
+
+循环 `for i := range c` 会不断从`channel`接收值，直到它被关闭。 
+
+*注意*： 只有发送者才能关闭`channel`，而不是接收者。向一个已经关闭的`channel`发送数据会引起`panic`。 
+
+*还要注意*：`channel`与文件不同；通常情况下无需关闭它们。只有在需要告诉接收者没有更多的数据的时候才有必要进行关闭，例如中断一个 `range`。 
+```
+package main
+
+import (
+	"fmt"
+)
+
+func fibonacci(n int, c chan int) {
+	x, y := 0, 1
+	for i := 0; i < n; i++ {
+		c <- x
+		x, y = y, x+y
+	}
+	close(c)
+}
+
+func main() {
+	c := make(chan int, 10)
+	go fibonacci(cap(c), c)
+	for i := range c {
+		fmt.Println(i)
+	}
+}
+```
+结果
+
+0
+
+1
+
+1
+
+2
+
+3
+
+5
+
+8
+
+13
+
+21
+
+34
+
+### select
+`select`语句使得一个`goroutine`在多个通讯操作上等待。 
+
+`select`会阻塞，直到条件分支中的某个可以继续执行，这时就会执行那个条件分支。当多个都准备好的时候，会随机选择一个。 
+```
+package main
+
+import "fmt"
+
+func fibonacci(c, quit chan int) {
+	x, y := 0, 1
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
+}
+
+func main() {
+	c := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-c)
+		}
+		quit <- 0
+	}()
+	fibonacci(c, quit)
+}
+```
+结果
+
+0
+
+1
+
+1
+
+2
+
+3
+
+5
+
+8
+
+13
+
+21
+
+34
+
+quit
+
+### 默认选择
+当`select`中的其他条件分支都没有准备好的时候，`default` 分支会被执行。 
+
+为了非阻塞的发送或者接收，可使用`default`分支：
+
+```
+select {
+case i := <-c:
+    // 使用 i
+default:
+    // 从 c 读取会阻塞
+}
+```
+```
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	tick := time.Tick(100 * time.Millisecond)
+	boom := time.After(500 * time.Millisecond)
+	for {
+		select {
+		case <-tick:
+			fmt.Println("tick.")
+		case <-boom:
+			fmt.Println("BOOM!")
+			return
+		default:
+			fmt.Println("    .")
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+}
+```
+结果
+
+    .
+    
+    .
+    
+tick.
+
+    .
+    
+    .
+    
+tick.
+
+    .
+    
+    .
+    
+tick.
+
+    .
+    
+    .
+    
+tick.
+
+    .
+    
+    .
+    
+tick.
+
+BOOM!
+
 
 ## 恭喜！
 
