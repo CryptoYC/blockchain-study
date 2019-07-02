@@ -5,4 +5,4 @@
 
 ## 关于我们
 
-![QRcode](https://github.com/EVOLABTeam/blockchain-study/blob/master/asset/img/QRcode.jpg)
+![QRcode](media/QRcode.jpg)
