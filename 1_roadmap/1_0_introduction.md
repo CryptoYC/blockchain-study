@@ -6,7 +6,7 @@
 |  知识点  |                             内容                             |                         里程碑                         | 课时(天) |
 | :------: | :----------------------------------------------------------: | :----------------------------------------------------: | :------: |
 | 基本语法 |             [Go语言之旅](https://tour.go-zh.org)             |             [8421-BCD转码程序](https://github.com/aturX/create-a-blockchain/blob/master/learn_go/practice/BCD/main.go)              |    1     |
-| 数据结构 |             [算法图解.pdf](https://vdisk.weibo.com/s/BK8JElqHVH6KX)                         | 使用Go实现：二叉树、图、队列、堆和栈、快速排序和堆排序 |    2     |
+| 数据结构 |             [算法图解.pdf](https://vdisk.weibo.com/s/BK8JElqHVH6KX)    | [使用Go实现：二叉树、图、队列、堆和栈、快速排序和堆排序](https://github.com/aturX/create-a-blockchain/tree/master/learn_go/practice/Algorithm) |    2     |
 |    IO    | [Go并发编程中的那些事](https://github.com/xitu/gold-miner/blob/master/TODO/concurrent-programming.md) |                   实现一个贪吃蛇游戏                   |    2     |
 
 2. 操作系统
