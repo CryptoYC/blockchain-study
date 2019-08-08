@@ -5,11 +5,4 @@
 
 ## 在线阅读
 - [SUMMARY.md](SUMMARY.md)
-<<<<<<< HEAD
-
-
-## 关于我们
-
-![QRcode](media/QRcode.jpg)
-=======
->>>>>>> 001cbb68028f847ffabc53297f3d95678b095911
+ 
